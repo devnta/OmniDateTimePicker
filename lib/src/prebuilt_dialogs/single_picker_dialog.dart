@@ -18,6 +18,7 @@ class SinglePickerDialog extends StatelessWidget {
   final String? amText;
   final String? pmText;
   final bool? isShowSeconds;
+  final bool? isShowMinutes;
   final bool? is24HourMode;
   final int? minutesInterval;
   final int? secondsInterval;
@@ -43,6 +44,7 @@ class SinglePickerDialog extends StatelessWidget {
     this.amText,
     this.pmText,
     this.isShowSeconds,
+    this.isShowMinutes,
     this.is24HourMode,
     this.minutesInterval,
     this.secondsInterval,
@@ -90,6 +92,7 @@ class SinglePickerDialog extends StatelessWidget {
                     amText: amText,
                     pmText: pmText,
                     isShowSeconds: isShowSeconds ?? false,
+                    isShowMinutes: isShowMinutes ?? true,
                     is24HourMode: is24HourMode ?? false,
                     minutesInterval: minutesInterval ?? 1,
                     secondsInterval: secondsInterval ?? 1,

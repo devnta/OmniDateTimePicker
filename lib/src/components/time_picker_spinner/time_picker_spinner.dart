@@ -8,6 +8,7 @@ class TimePickerSpinner extends StatelessWidget {
   final String amText;
   final String pmText;
   final bool isShowSeconds;
+  final bool isShowMinutes;
   final bool is24HourMode;
   final int minutesInterval;
   final int secondsInterval;
@@ -33,6 +34,7 @@ class TimePickerSpinner extends StatelessWidget {
     required this.amText,
     required this.pmText,
     required this.isShowSeconds,
+    required this.isShowMinutes,
     required this.is24HourMode,
     required this.minutesInterval,
     required this.secondsInterval,
@@ -125,34 +127,35 @@ class TimePickerSpinner extends StatelessWidget {
                   ),
 
                   /// Minutes
-                  Expanded(
-                    child: CupertinoPicker(
-                      scrollController: FixedExtentScrollController(
-                        initialItem: state.initialMinuteIndex,
-                      ),
-                      diameterRatio: diameterRatio,
-                      itemExtent: itemExtent,
-                      squeeze: squeeze,
-                      magnification: magnification,
-                      looping: looping,
-                      selectionOverlay: selectionOverlay,
-                      onSelectedItemChanged: (index) {
-                        datetimeBloc.add(UpdateMinute(
-                            minute: int.parse(state.minutes[index])));
-                      },
-                      children: List.generate(
-                        state.minutes.length,
-                        (index) {
-                          String minute = state.minutes[index];
-
-                          if (isForce2Digits) {
-                            minute = minute.padLeft(2, '0');
-                          }
-                          return Center(child: Text(minute));
+                  if (isShowMinutes)
+                    Expanded(
+                      child: CupertinoPicker(
+                        scrollController: FixedExtentScrollController(
+                          initialItem: state.initialMinuteIndex,
+                        ),
+                        diameterRatio: diameterRatio,
+                        itemExtent: itemExtent,
+                        squeeze: squeeze,
+                        magnification: magnification,
+                        looping: looping,
+                        selectionOverlay: selectionOverlay,
+                        onSelectedItemChanged: (index) {
+                          datetimeBloc.add(UpdateMinute(
+                              minute: int.parse(state.minutes[index])));
                         },
+                        children: List.generate(
+                          state.minutes.length,
+                          (index) {
+                            String minute = state.minutes[index];
+
+                            if (isForce2Digits) {
+                              minute = minute.padLeft(2, '0');
+                            }
+                            return Center(child: Text(minute));
+                          },
+                        ),
                       ),
                     ),
-                  ),
 
                   /// Seconds
                   if (isShowSeconds)
